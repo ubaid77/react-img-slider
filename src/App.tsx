@@ -15,7 +15,10 @@ function App() {
 
   return (
     <Suspense fallback={<div className="loading" />}>
-      <ViewSlider togglePlay={togglePlay} isPlaying={isPlaying} />
+      <div className="app">
+        <ViewSlider togglePlay={togglePlay} isPlaying={isPlaying} />
+      </div>
+
       <Sound
         url={audioClip}
         playStatus={isPlaying ? "PLAYING" : "PAUSED"}
