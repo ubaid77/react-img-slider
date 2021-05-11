@@ -2,13 +2,16 @@ import React, { useState, useCallback } from "react";
 import Navigation from "../Components/Navigation";
 import Slides from "../Components/Slides";
 import { useSlider } from "../Utils/useSlider";
-import Sound from "react-sound";
-import audioClip from "../Audio/bg-audio.mp3";
 
-const SliderContainer = () => {
+interface PropTypes {
+  togglePlay: Function;
+  isPlaying: boolean;
+}
+const SliderContainer = (props: PropTypes) => {
+  const { togglePlay, isPlaying } = props;
   const slidesData = useSlider();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPlaying, SetisPalying] = useState(false);
+
   const length = slidesData.length;
 
   const nextSlide = useCallback(() => {
@@ -18,10 +21,6 @@ const SliderContainer = () => {
   const prevSlide = useCallback(() => {
     setCurrentSlide((curr) => (curr === 0 ? length - 1 : curr - 1));
   }, [length]);
-
-  const togglePlay = useCallback(() => {
-    SetisPalying((prev) => !prev);
-  }, []);
 
   return (
     <>
@@ -45,11 +44,6 @@ const SliderContainer = () => {
           isPlaying={isPlaying}
         />
       </div>
-      <Sound
-        url={audioClip}
-        playStatus={isPlaying ? "PLAYING" : "PAUSED"}
-        playFromPosition={0}
-      />
     </>
   );
 };
